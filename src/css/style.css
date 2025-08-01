@@ -88,7 +88,8 @@ img {
 .main-nav a {
   text-decoration: none;
   color: #000;
-  font-weight: normal;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
   font-size: 0.9rem;
   letter-spacing: 0.3px;
   border-bottom: 1px solid transparent;
@@ -111,6 +112,8 @@ img {
   width: 140px;
   padding: 0;
   background: transparent;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
   font-size: 0.85rem;
   z-index: 50;
 }
@@ -177,12 +180,16 @@ img {
 .work h2 {
   margin-bottom: 0.8rem;
   font-size: 1rem;
-  font-weight: normal;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-weight: bold;
+  color: #000000;
 }
 
 .info {
   font-size: 0.8rem;
-  color: #666;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-weight: normal;
+  color: #808080;
   margin-bottom: 0.8rem;
   line-height: 1.4;
   letter-spacing: 0.2px;
@@ -191,6 +198,9 @@ img {
 .description {
   margin-bottom: 2rem;
   font-size: 0.9rem;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-weight: normal;
+  color: #000000;
   line-height: 1.6;
   max-width: 650px;
 }
