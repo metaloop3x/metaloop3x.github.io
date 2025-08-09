@@ -51,7 +51,7 @@ img {
 
 /* Logo in the top bar */
 .site-title img {
-  height: 7rem;
+  height: 10rem;
   width: auto;
   margin: 0;
 }
@@ -60,7 +60,7 @@ img {
 .topbar {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 2rem 2rem 1rem 2rem;
   background: #f8f8f8;
   border-bottom: none;
@@ -259,6 +259,7 @@ img {
     margin-left: 160px;
     padding: 2rem 1.5rem;
   }
+  .site-title img { height: 8rem; }
   
   .sidebar {
     width: 120px;
@@ -267,6 +268,7 @@ img {
 }
 
 @media (max-width: 768px) {
+  .site-title img { height: 6rem; }
   .topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -318,6 +320,7 @@ img {
 }
 
 @media (max-width: 480px) {
+  .site-title img { height: 4.5rem; }
   .topbar {
     padding: 1rem;
   }
