@@ -5,12 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — KHING</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .single-page { max-width: 900px; margin: 0 auto; padding: 2rem; }
-    .single-page h1 { margin-bottom: 1rem; }
-    .contact-list { list-style: none; padding: 0; }
-    .contact-list li { margin-bottom: 0.5rem; }
-  </style>
   </head>
 <body>
   <div class="topbar">
@@ -24,12 +18,31 @@
     </nav>
   </div>
 
-  <main class="single-page">
-    <h1>Contact</h1>
-    <ul class="contact-list">
-      <li>Email: your@email.com</li>
-      <li>Instagram: @yourhandle</li>
+  <!-- Sidebar Navigation (same layout as index) -->
+  <aside class="sidebar">
+    <ul>
+      <li class="year">Contact</li>
+      <li><a href="#email">Email</a></li>
+      <li><a href="#instagram">Instagram</a></li>
     </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <section id="contacts">
+      <div class="work" id="email">
+        <h2>Contact</h2>
+        <div class="description">
+          <p>Email: your@email.com</p>
+        </div>
+      </div>
+      <div class="work" id="instagram">
+        <h2>Social</h2>
+        <div class="description">
+          <p>Instagram: @yourhandle</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <button id="backToTop" onclick="scrollToTop()">back to top</button>

@@ -18,18 +18,19 @@
     </nav>
   </div>
 
-  <div class="about-container">
-    <aside class="about-sidebar">
-      <ul>
-        <li><a href="#biography" class="active">Biography</a></li>
-        <li><a href="#exhibitions">Exhibitions</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#awards">Awards &amp; Scholarship</a></li>
-      </ul>
-    </aside>
+  <!-- Sidebar + Content layout matching index -->
+  <aside class="sidebar">
+    <ul>
+      <li class="year">About</li>
+      <li><a href="#biography" class="active">Biography</a></li>
+      <li><a href="#exhibitions">Exhibitions</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#awards">Awards &amp; Scholarship</a></li>
+    </ul>
+  </aside>
 
-    <main class="about-content">
-      <section id="biography" class="about-section">
+  <main class="content">
+      <section id="biography" class="work about-section">
         <h1>Biography</h1>
         <div class="bio-intro">
           <img src="./assets/images/Khing-Profile-Photo.jpeg" alt="Khing (KhingWei Bai) portrait" class="bio-photo" />
@@ -41,7 +42,7 @@
         </div>
       </section>
 
-      <section id="exhibitions" class="about-section">
+      <section id="exhibitions" class="work about-section">
         <h2>Exhibitions</h2>
         <ul class="about-list">
           <li>
@@ -68,7 +69,7 @@
         </ul>
       </section>
 
-      <section id="education" class="about-section">
+      <section id="education" class="work about-section">
         <h2>Education</h2>
         <ul class="about-list">
           <li>
@@ -95,7 +96,7 @@
         </ul>
       </section>
 
-      <section id="awards" class="about-section">
+      <section id="awards" class="work about-section">
         <h2>Awards &amp; Scholarship</h2>
         <ul class="about-list">
           <li>
@@ -106,8 +107,7 @@
           </li>
         </ul>
       </section>
-    </main>
-  </div>
+  </main>
 
   <button id="backToTop" onclick="scrollToTop()">back to top</button>
   <script src="js/main.js"></script>
