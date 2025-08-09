@@ -60,3 +60,25 @@ window.addEventListener('scroll', function() {
         }
     });
 }); 
+
+// Smooth scroll for sidebar links with correct offset for sticky topbar
+window.addEventListener('DOMContentLoaded', function() {
+  const sidebarAnchors = document.querySelectorAll('.sidebar a[href^="#"]');
+  const topbar = document.querySelector('.topbar');
+
+  sidebarAnchors.forEach(anchor => {
+    anchor.addEventListener('click', function(event) {
+      const targetId = this.getAttribute('href').slice(1);
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) {
+        return;
+      }
+      event.preventDefault();
+      const topbarHeight = topbar ? topbar.offsetHeight : 0;
+      const extraSpacing = 20; // breathing room below the header
+      const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+});

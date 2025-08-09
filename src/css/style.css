@@ -178,6 +178,8 @@ img {
   margin-bottom: 4rem;
   border-bottom: none;
   padding-bottom: 2rem;
+  /* Ensure anchor links position section below sticky topbar */
+  scroll-margin-top: 26rem;
 }
 
 .work:last-child {
@@ -261,6 +263,7 @@ img {
   }
   .site-title img { height: 14rem; }
   .sidebar { top: 18rem; }
+  .work { scroll-margin-top: 20rem; }
   
   .sidebar {
     width: 120px;
@@ -277,6 +280,7 @@ img {
     padding: 1.5rem;
     gap: 1rem;
   }
+  .work { scroll-margin-top: 12rem; }
   
   .site-title h1 {
     font-size: 2rem;
@@ -327,6 +331,7 @@ img {
   .topbar {
     padding: 1rem;
   }
+  .work { scroll-margin-top: 9rem; }
   
   .site-title h1 {
     font-size: 1.8rem;
