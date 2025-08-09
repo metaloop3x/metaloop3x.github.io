@@ -28,12 +28,9 @@ window.addEventListener('scroll', function() {
         if (pageYOffset >= (sectionTop - 200)) {
             current = section.getAttribute('id');
             // Determine current year based on project
-            if (['destinesia', 'project2', 'project3'].includes(current)) {
-                currentYear = '2025';
-            } else if (['project4', 'project5'].includes(current)) {
-                currentYear = '2024';
-            } else if (['project6', 'project7'].includes(current)) {
-                currentYear = '2023';
+            const currentSection = document.getElementById(current);
+            if (currentSection) {
+                currentYear = currentSection.getAttribute('data-year') || '';
             }
         }
     });

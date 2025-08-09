@@ -51,7 +51,7 @@ img {
 
 /* Logo in the top bar */
 .site-title img {
-  height: 12rem;
+  height: 20rem;
   width: auto;
   margin: 0;
 }
@@ -114,7 +114,7 @@ img {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 15rem;
+  top: 24rem;
   left: 2rem;
   width: 140px;
   padding: 0;
@@ -259,8 +259,8 @@ img {
     margin-left: 160px;
     padding: 2rem 1.5rem;
   }
-  .site-title img { height: 8rem; }
-  .sidebar { top: 11rem; }
+  .site-title img { height: 14rem; }
+  .sidebar { top: 18rem; }
   
   .sidebar {
     width: 120px;
@@ -269,7 +269,7 @@ img {
 }
 
 @media (max-width: 768px) {
-  .site-title img { height: 6rem; }
+  .site-title img { height: 10rem; }
   .sidebar { top: auto; }
   .topbar {
     flex-direction: column;
@@ -322,7 +322,7 @@ img {
 }
 
 @media (max-width: 480px) {
-  .site-title img { height: 4.5rem; }
+  .site-title img { height: 7rem; }
   .sidebar { top: auto; }
   .topbar {
     padding: 1rem;
@@ -348,3 +348,46 @@ img {
     padding: 1rem;
   }
 } 
+
+/* About page layout */
+.about-container {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.about-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-sidebar a {
+  color: #666;
+  text-decoration: none;
+  display: block;
+  padding: 0.35rem 0;
+}
+
+.about-sidebar a.active,
+.about-sidebar a:hover { color: #000; }
+
+.about-content { max-width: 900px; }
+.about-section { margin-bottom: 2.5rem; }
+.about-section h1 { font-size: 1.2rem; margin-bottom: 1rem; }
+.about-section h2 { font-size: 1rem; margin-bottom: 0.8rem; font-weight: bold; }
+
+.about-list { list-style: none; padding: 0; margin: 0; }
+.about-list li { display: grid; grid-template-columns: 170px 1fr; gap: 1rem; margin-bottom: 0.8rem; }
+.about-year { color: #666; }
+.about-title { font-family: 'Times New Roman', Georgia, serif; color: #000; }
+.about-meta { color: #808080; font-size: 0.9rem; }
+
+.bio-intro { display: grid; grid-template-columns: 160px 1fr; gap: 1.25rem; align-items: start; }
+.bio-photo { width: 160px; height: auto; display: block; }
+
+@media (max-width: 768px) {
+  .about-container { grid-template-columns: 1fr; }
+  .about-list li { grid-template-columns: 1fr; }
+}
