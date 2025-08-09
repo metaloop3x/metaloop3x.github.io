@@ -51,7 +51,7 @@ img {
 
 /* Logo in the top bar */
 .site-title img {
-  height: 10rem;
+  height: 12rem;
   width: auto;
   margin: 0;
 }
@@ -114,7 +114,7 @@ img {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 120px;
+  top: 15rem;
   left: 2rem;
   width: 140px;
   padding: 0;
@@ -260,6 +260,7 @@ img {
     padding: 2rem 1.5rem;
   }
   .site-title img { height: 8rem; }
+  .sidebar { top: 11rem; }
   
   .sidebar {
     width: 120px;
@@ -269,6 +270,7 @@ img {
 
 @media (max-width: 768px) {
   .site-title img { height: 6rem; }
+  .sidebar { top: auto; }
   .topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -321,6 +323,7 @@ img {
 
 @media (max-width: 480px) {
   .site-title img { height: 4.5rem; }
+  .sidebar { top: auto; }
   .topbar {
     padding: 1rem;
   }
