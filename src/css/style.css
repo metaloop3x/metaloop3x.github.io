@@ -51,23 +51,23 @@ img {
 
 /* Logo in the top bar */
 .site-title img {
-  height: 10rem;
+  height: 7rem;
   width: auto;
   margin: 0;
 }
 
 /* Layout */
 .topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 2rem 1rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  padding: 1rem 2rem 0 2rem;
   background: #f8f8f8;
   border-bottom: none;
   position: sticky;
   top: 0;
   z-index: 100;
-  min-height: 80px;
+  height: 12rem; /* fixed height independent of logo size */
 }
 
 .site-title h1 {
@@ -89,7 +89,9 @@ img {
 .main-nav {
   display: flex;
   gap: 2rem;
-  align-items: baseline;
+  align-items: flex-end;
+  height: 100%;
+  padding-bottom: 12px; /* ~10–15px from bottom */
 }
 
 .main-nav a {
@@ -114,7 +116,7 @@ img {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 24rem;
+  top: 12rem; /* sits just below fixed topbar */
   left: 2rem;
   width: 140px;
   padding: 0;
@@ -305,8 +307,8 @@ img {
     margin-left: 160px;
     padding: 2rem 1.5rem;
   }
-  .site-title img { height: 14rem; }
-  .sidebar { top: 18rem; }
+  .site-title img { height: 7rem; }
+  .sidebar { top: 12rem; }
   .work { scroll-margin-top: 20rem; }
   
   .sidebar {
@@ -316,14 +318,9 @@ img {
 }
 
 @media (max-width: 768px) {
-  .site-title img { height: 10rem; }
+  .site-title img { height: 6rem; }
   .sidebar { top: auto; }
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1.5rem;
-    gap: 1rem;
-  }
+  .topbar { height: auto; padding: 1.5rem; }
   .work { scroll-margin-top: 12rem; }
   
   .site-title h1 {

@@ -9,8 +9,7 @@ window.onscroll = function() {
 };
 
 function scrollToTop() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Enhanced sidebar navigation highlighting
@@ -24,8 +23,9 @@ window.addEventListener('scroll', function() {
     
     // Find current section
     sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= (sectionTop - 200)) {
+        const title = section.querySelector('h2');
+        const anchorTop = title ? (title.getBoundingClientRect().top + window.pageYOffset) : section.offsetTop;
+        if (pageYOffset >= (anchorTop - 120)) {
             current = section.getAttribute('id');
             // Determine current year based on project
             const currentSection = document.getElementById(current);
