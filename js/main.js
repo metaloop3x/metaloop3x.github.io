@@ -24,14 +24,7 @@ window.addEventListener('scroll', function() {
     const anchorTop = section.getBoundingClientRect().top + window.pageYOffset;
     if (pageYOffset >= (anchorTop - 140)) {
       current = section.getAttribute('id');
-      const year = section.getAttribute('data-year');
-      openYears.forEach(g => {
-        if (g.dataset.year === year) {
-          g.classList.add('open');
-          const btn = g.previousElementSibling;
-          if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'true');
-        }
-      });
+      // Do not auto-open/expand all years; keep user's current open/closed state
     }
   });
 
@@ -46,7 +39,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const topbar = document.querySelector('.topbar');
   const yearToggles = document.querySelectorAll('.year-toggle');
   const yearGroups = document.querySelectorAll('.year-group');
-  const worksSections = document.querySelectorAll('.content .work');
+  const worksSections = document.querySelectorAll('body.works-body .content .work');
 
   sidebarAnchors.forEach(anchor => {
     anchor.addEventListener('click', function(event) {
@@ -81,8 +74,8 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Ensure latest year is open by default
-  if (yearGroups.length) {
+  // Ensure latest year is open by default (works page only)
+  if (document.body.classList.contains('works-body') && yearGroups.length) {
     const first = yearGroups[0];
     first.classList.add('open');
     const btn = first.previousElementSibling;
@@ -90,7 +83,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   // On works page initial state: hide all works
-  if (worksSections.length) {
+  if (document.body.classList.contains('works-body') && worksSections.length) {
     worksSections.forEach(sec => sec.classList.add('hidden'));
   }
 });
