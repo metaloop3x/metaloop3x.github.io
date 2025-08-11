@@ -25,7 +25,7 @@ body {
 .home-hero + .home-hero { margin-top: 0; }
 .hero-link { display: block; position: relative; text-decoration: none; }
 .hero-link img { display: block; width: 100%; height: auto; margin: 0; }
-.hero-caption { position: absolute; right: 12px; bottom: 12px; background: rgba(255,255,255,0.9); color: #000; padding: 6px 8px; font-family: Helvetica, Arial, sans-serif; font-size: 0.85rem; }
+.hero-caption { position: absolute; right: 12px; bottom: 12px; background: rgba(255,255,255,0.2); color: #000; padding: 6px 8px; font-family: Helvetica, Arial, sans-serif; font-size: 0.85rem; }
 .hero-caption .year { color: #000; margin-right: 6px; }
 
 /* Typography Hierarchy */
