@@ -26,8 +26,8 @@ body {
 .latest-card { position: absolute; right: 1rem; bottom: 1rem; background: #fff; padding: 0.75rem 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
 .latest-card .latest-title { font-family: Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #000; margin-bottom: 0.4rem; }
 .latest-item { display: inline-flex; gap: 0.5rem; align-items: baseline; color: #000; text-decoration: none; }
-.home-bottom-link { display: block; font-family: Helvetica, Arial, sans-serif; font-size: 0.85rem; color: #666; text-decoration: none; padding: 0.5rem 0; border-top: 1px solid #ddd; }
-.home-bottom-link:hover { color: #000; }
+.home-bottom-link { display: block; height: 28px; background: #eee; border-top: 1px solid #ccc; text-decoration: none; }
+.home-bottom-link:hover { background: #f5e5e5; }
 
 /* Typography Hierarchy */
 h1 {
@@ -74,11 +74,22 @@ img {
   align-items: start;
   padding: 1rem 2rem 0 2rem;
   background: #f8f8f8;
-  border-bottom: 2px solid #000;
+  border-bottom: none;
   position: sticky;
   top: 0;
   z-index: 100;
   height: 12rem; /* fixed height independent of logo size */
+}
+
+/* thin rule under topbar, shorter width (aligned with page padding) */
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  bottom: 0;
+  height: 0.25px;
+  background: #000;
 }
 
 .site-title h1 {
@@ -107,7 +118,7 @@ img {
 
 .main-nav a {
   text-decoration: none;
-  color: #000;
+  color: #999;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
@@ -120,9 +131,10 @@ img {
   border-bottom: 1px solid #000;
 }
 
-.main-nav a.active {
-  border-bottom: 1px solid #000;
-}
+.main-nav a.active { color: #000; border-bottom: 1px solid #000; }
+
+/* homepage keeps black nav by default */
+.home-body .main-nav a { color: #000; }
 
 /* Sidebar */
 .sidebar {
@@ -248,7 +260,7 @@ img {
 .year-group { display: none; margin: 0.4rem 0 1rem 0; }
 .year-group.open { display: block; }
 .year-group a { color: #999; }
-.year-group a.active { color: #000; border-bottom: 1px solid #000; }
+.year-group a.active { color: #000; }
 
 /* Responsive video embeds */
 .video-container {
