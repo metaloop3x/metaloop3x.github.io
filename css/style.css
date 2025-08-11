@@ -200,6 +200,8 @@ img {
   scroll-margin-top: 26rem;
 }
 
+.work.hidden { display: none; }
+
 .work:last-child {
   border-bottom: none;
 }

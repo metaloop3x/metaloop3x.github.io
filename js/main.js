@@ -46,6 +46,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const topbar = document.querySelector('.topbar');
   const yearToggles = document.querySelectorAll('.year-toggle');
   const yearGroups = document.querySelectorAll('.year-group');
+  const worksSections = document.querySelectorAll('.content .work');
 
   sidebarAnchors.forEach(anchor => {
     anchor.addEventListener('click', function(event) {
@@ -55,6 +56,13 @@ window.addEventListener('DOMContentLoaded', function() {
         return;
       }
       event.preventDefault();
+
+      // Works page behavior: show only selected project
+      if (worksSections.length) {
+        worksSections.forEach(sec => sec.classList.add('hidden'));
+        targetEl.classList.remove('hidden');
+      }
+
       const topbarHeight = topbar ? topbar.offsetHeight : 0;
       const extraSpacing = 20; // breathing room below the header
       const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
@@ -79,5 +87,10 @@ window.addEventListener('DOMContentLoaded', function() {
     first.classList.add('open');
     const btn = first.previousElementSibling;
     if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'true');
+  }
+
+  // On works page initial state: hide all works
+  if (worksSections.length) {
+    worksSections.forEach(sec => sec.classList.add('hidden'));
   }
 });
