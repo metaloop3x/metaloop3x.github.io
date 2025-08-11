@@ -98,6 +98,9 @@ img {
   letter-spacing: 2px;
 }
 
+/* Vertically center the logo within the fixed-height topbar */
+.site-title { display: flex; align-items: center; height: 100%; }
+
 .site-title p {
   font-size: 0.85rem;
   color: #000;
@@ -110,9 +113,9 @@ img {
 .main-nav {
   display: flex;
   gap: 2rem;
-  align-items: flex-end;
+  align-items: center;
   height: 100%;
-  padding-bottom: 12px; /* ~10–15px from bottom */
+  padding-bottom: 0;
 }
 
 .main-nav a {
@@ -346,10 +349,11 @@ img {
 }
 
 @media (max-width: 768px) {
-  .site-title img { height: 6rem; }
+  .site-title img { height: 2.75rem; }
   .sidebar { top: auto; }
-  .topbar { height: auto; padding: 1.5rem; }
+  .topbar { height: auto; padding: 1.25rem; }
   .work { scroll-margin-top: 12rem; }
+  .about-mobile-hide { display: none; }
   
   .site-title h1 {
     font-size: 2rem;
@@ -360,19 +364,15 @@ img {
     gap: 1.5rem;
   }
   
-  .sidebar {
-    position: static;
-    width: 100%;
-    padding: 1rem 1.5rem;
-    background: #f0f0f0;
-    margin-bottom: 2rem;
-  }
+  .sidebar { position: static; width: 100%; padding: 0; background: transparent; margin: 0 0 1rem 0; }
+  .sidebar-toggle { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; background: #efefef; border: 1px solid #ddd; font: 500 0.95rem/1.2 Helvetica, Arial, sans-serif; }
+  .drawer-content { display: none; padding: 0.5rem 1rem 1rem; background: #f7f7f7; }
+  .drawer-content.open { display: block; }
   .year-toggle { font-weight: bold; }
   
   .sidebar ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: block;
+    gap: 0;
   }
   
   .sidebar .year {
@@ -396,7 +396,7 @@ img {
 }
 
 @media (max-width: 480px) {
-  .site-title img { height: 7rem; }
+  .site-title img { height: 2.5rem; }
   .sidebar { top: auto; }
   .topbar {
     padding: 1rem;
