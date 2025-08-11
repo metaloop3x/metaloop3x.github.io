@@ -18,6 +18,17 @@ body {
   letter-spacing: 0.3px;
 }
 
+/* Home specific */
+.home-body { background: #f4f4f4; }
+.home-content { padding: 1.5rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+.home-hero { margin: 0 0 2rem 0; }
+.hero-image { position: relative; }
+.latest-card { position: absolute; right: 1rem; bottom: 1rem; background: #fff; padding: 0.75rem 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+.latest-card .latest-title { font-family: Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #000; margin-bottom: 0.4rem; }
+.latest-item { display: inline-flex; gap: 0.5rem; align-items: baseline; color: #000; text-decoration: none; }
+.home-bottom-link { display: block; font-family: Helvetica, Arial, sans-serif; font-size: 0.85rem; color: #666; text-decoration: none; padding: 0.5rem 0; border-top: 1px solid #ddd; }
+.home-bottom-link:hover { color: #000; }
+
 /* Typography Hierarchy */
 h1 {
   font-size: 2.5rem;
@@ -63,7 +74,7 @@ img {
   align-items: start;
   padding: 1rem 2rem 0 2rem;
   background: #f8f8f8;
-  border-bottom: none;
+  border-bottom: 2px solid #000;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -156,13 +167,7 @@ img {
 }
 
 /* Year sections in sidebar */
-.sidebar .year {
-  color: #666;
-  font-weight: normal;
-  margin: 1.5rem 0 0.5rem 0;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
-}
+.sidebar .year { color: #666; font-weight: normal; margin: 1.5rem 0 0.5rem 0; font-size: 0.9rem; transition: color 0.2s ease; }
 
 .sidebar .year:first-child {
   margin-top: 0;
@@ -194,6 +199,7 @@ img {
   font-family: 'Times New Roman', Georgia, serif;
   font-weight: bold;
   color: #000000;
+  border-bottom: 1px solid transparent;
 }
 
 .info {
@@ -234,6 +240,15 @@ img {
   max-width: 100%;
   height: auto;
 } 
+
+/* Collapsible years in sidebar */
+.year-toggle { background: none; border: none; color: #000; font: inherit; padding: 0.2rem 0; cursor: pointer; }
+.year-toggle[aria-expanded="false"]::after { content: ' \25B8'; }
+.year-toggle[aria-expanded="true"]::after { content: ' \25BE'; }
+.year-group { display: none; margin: 0.4rem 0 1rem 0; }
+.year-group.open { display: block; }
+.year-group a { color: #999; }
+.year-group a.active { color: #000; border-bottom: 1px solid #000; }
 
 /* Responsive video embeds */
 .video-container {
@@ -339,6 +354,7 @@ img {
     background: #f0f0f0;
     margin-bottom: 2rem;
   }
+  .year-toggle { font-weight: bold; }
   
   .sidebar ul {
     display: flex;
@@ -433,6 +449,8 @@ img {
 
 .bio-intro { display: grid; grid-template-columns: 160px 1fr; gap: 1.25rem; align-items: start; }
 .bio-photo { width: 160px; height: auto; display: block; }
+.bio-intro.vertical { grid-template-columns: 1fr; }
+.bio-intro.vertical .bio-photo { width: 220px; }
 
 @media (max-width: 768px) {
   .about-container { grid-template-columns: 1fr; }

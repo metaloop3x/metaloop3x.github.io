@@ -12,59 +12,40 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Enhanced sidebar navigation highlighting
+// Highlight active work and year in works page
 window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('.work');
-    const navLinks = document.querySelectorAll('.sidebar a:not(.year)');
-    const yearLabels = document.querySelectorAll('.sidebar .year');
-    
-    let current = '';
-    let currentYear = '';
-    
-    // Find current section
-    sections.forEach(section => {
-        const title = section.querySelector('h2');
-        const anchorTop = title ? (title.getBoundingClientRect().top + window.pageYOffset) : section.offsetTop;
-        if (pageYOffset >= (anchorTop - 120)) {
-            current = section.getAttribute('id');
-            // Determine current year based on project
-            const currentSection = document.getElementById(current);
-            if (currentSection) {
-                currentYear = currentSection.getAttribute('data-year') || '';
-            }
-        }
-    });
+  const sections = document.querySelectorAll('.work');
+  const navLinks = document.querySelectorAll('.year-group a');
+  const openYears = document.querySelectorAll('.year-group');
 
-    // Reset all links and years to grey
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        link.style.color = '#666';
-    });
-    
-    yearLabels.forEach(year => {
-        year.style.color = '#666';
-    });
+  let current = '';
 
-    // Highlight current project in black
-    navLinks.forEach(link => {
-        if (link.getAttribute('href').substring(1) === current) {
-            link.classList.add('active');
-            link.style.color = '#000';
+  sections.forEach(section => {
+    const anchorTop = section.getBoundingClientRect().top + window.pageYOffset;
+    if (pageYOffset >= (anchorTop - 140)) {
+      current = section.getAttribute('id');
+      const year = section.getAttribute('data-year');
+      openYears.forEach(g => {
+        if (g.dataset.year === year) {
+          g.classList.add('open');
+          const btn = g.previousElementSibling;
+          if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'true');
         }
-    });
-    
-    // Highlight current year in black
-    yearLabels.forEach(year => {
-        if (year.textContent === currentYear) {
-            year.style.color = '#000';
-        }
-    });
-}); 
+      });
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href').substring(1) === current);
+  });
+});
 
 // Smooth scroll for sidebar links with correct offset for sticky topbar
 window.addEventListener('DOMContentLoaded', function() {
   const sidebarAnchors = document.querySelectorAll('.sidebar a[href^="#"]');
   const topbar = document.querySelector('.topbar');
+  const yearToggles = document.querySelectorAll('.year-toggle');
+  const yearGroups = document.querySelectorAll('.year-group');
 
   sidebarAnchors.forEach(anchor => {
     anchor.addEventListener('click', function(event) {
@@ -81,4 +62,22 @@ window.addEventListener('DOMContentLoaded', function() {
       history.replaceState(null, '', '#' + targetId);
     });
   });
+
+  // Collapsible years
+  yearToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const list = this.nextElementSibling;
+      const isOpen = list.classList.contains('open');
+      list.classList.toggle('open');
+      this.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // Ensure latest year is open by default
+  if (yearGroups.length) {
+    const first = yearGroups[0];
+    first.classList.add('open');
+    const btn = first.previousElementSibling;
+    if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'true');
+  }
 });
