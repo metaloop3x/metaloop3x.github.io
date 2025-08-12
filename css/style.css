@@ -80,16 +80,7 @@ img {
   height: 12rem; /* fixed height independent of logo size */
 }
 
-/* thin rule under topbar, shorter width (aligned with page padding) */
-.topbar::after {
-  content: "";
-  position: absolute;
-  left: 2rem;
-  right: 2rem;
-  bottom: 0;
-  height: 0.25px;
-  background: #000;
-}
+
 
 .site-title h1 {
   font-size: 2.5rem;
