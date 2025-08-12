@@ -14,7 +14,9 @@ function scrollToTop() {
 
 // Highlight active work and year in works page
 window.addEventListener('scroll', function() {
-  const sections = document.querySelectorAll('.work');
+  const sections = document.body.classList.contains('works-body')
+    ? document.querySelectorAll('.work:not(.hidden)')
+    : document.querySelectorAll('.work');
   const navLinks = document.querySelectorAll('.year-group a');
   const openYears = document.querySelectorAll('.year-group');
 
@@ -77,17 +79,22 @@ window.addEventListener('DOMContentLoaded', function() {
         showWorkById(targetId);
       }
 
-      const topbarHeight = topbar ? topbar.offsetHeight : 0;
-      const extraSpacing = 20; // breathing room below the header
-      const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
-      history.replaceState(null, '', '#' + targetId);
-
-      // Auto-close mobile sidebar drawer
-      if (sidebarDrawer && sidebarDrawer.classList.contains('open')) {
-        sidebarDrawer.classList.remove('open');
-        if (sidebarDrawerBtn) sidebarDrawerBtn.setAttribute('aria-expanded', 'false');
+      // Auto-close sidebar drawer only on mobile
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        if (sidebarDrawer && sidebarDrawer.classList.contains('open')) {
+          sidebarDrawer.classList.remove('open');
+          if (sidebarDrawerBtn) sidebarDrawerBtn.setAttribute('aria-expanded', 'false');
+        }
       }
+
+      // Scroll to the selected work's top (title/lead) after drawer state settles
+      setTimeout(() => {
+        const topbarHeight = topbar ? topbar.offsetHeight : 0;
+        const extraSpacing = 20; // breathing room below the header
+        const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+        history.replaceState(null, '', '#' + targetId);
+      }, 60);
     });
   });
 
@@ -132,7 +139,17 @@ window.addEventListener('DOMContentLoaded', function() {
   if (document.body.classList.contains('works-body') && yearGroups.length) {
     const hash = window.location.hash ? window.location.hash.slice(1) : '';
     if (hash) {
+      // Reset any active state first
+      document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
       showWorkById(hash);
+      // Scroll to the title/lead area of the selected work
+      const targetEl = document.getElementById(hash);
+      if (targetEl) {
+        const topbarHeight = topbar ? topbar.offsetHeight : 0;
+        const extraSpacing = 20;
+        const y = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
     } else {
       // Keep all years closed initially on mobile and desktop
       document.querySelectorAll('.year-group').forEach(g => {
@@ -152,10 +169,12 @@ window.addEventListener('DOMContentLoaded', function() {
   // On works page initial state: hide all works, unless a hash is present
   if (document.body.classList.contains('works-body') && worksSections.length) {
     const hash = window.location.hash ? window.location.hash.slice(1) : '';
+    // Hide all works initially
     worksSections.forEach(sec => sec.classList.add('hidden'));
+    // Clear any active highlight
+    document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
     if (hash) {
       showWorkById(hash);
-      // Scroll to the top of the selected work (title/image area)
       const targetEl = document.getElementById(hash);
       if (targetEl) {
         const topbarHeight = topbar ? topbar.offsetHeight : 0;
@@ -164,7 +183,5 @@ window.addEventListener('DOMContentLoaded', function() {
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }
-    // Ensure no item is wrongly highlighted on first load
-    document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
   }
 });
