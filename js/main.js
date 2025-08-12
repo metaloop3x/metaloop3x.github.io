@@ -46,6 +46,16 @@ window.addEventListener('DOMContentLoaded', function() {
   const sidebarDrawer = document.querySelector('.drawer-content');
   const worksNav = document.querySelector('.works-nav');
 
+  function scrollToWorkTop(targetEl, smooth) {
+    if (!targetEl) return;
+    // Prefer the section title as anchor to avoid image-loading layout shifts
+    const anchor = targetEl.querySelector('h2') || targetEl;
+    const topbarHeight = topbar ? topbar.offsetHeight : 0;
+    const extraSpacing = 20;
+    const y = anchor.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
+    window.scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' });
+  }
+
   function showWorkById(targetId) {
     if (!document.body.classList.contains('works-body')) return;
     const targetEl = document.getElementById(targetId);
@@ -89,10 +99,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
       // Scroll to the selected work's top (title/lead) after drawer state settles
       setTimeout(() => {
-        const topbarHeight = topbar ? topbar.offsetHeight : 0;
-        const extraSpacing = 20; // breathing room below the header
-        const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
-        window.scrollTo({ top: targetY, behavior: 'smooth' });
+        scrollToWorkTop(targetEl, true);
         history.replaceState(null, '', '#' + targetId);
       }, 60);
     });
@@ -142,14 +149,8 @@ window.addEventListener('DOMContentLoaded', function() {
       // Reset any active state first
       document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
       showWorkById(hash);
-      // Scroll to the title/lead area of the selected work
-      const targetEl = document.getElementById(hash);
-      if (targetEl) {
-        const topbarHeight = topbar ? topbar.offsetHeight : 0;
-        const extraSpacing = 20;
-        const y = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+      // Scroll to the title/lead area of the selected work (instant to avoid shifts)
+      scrollToWorkTop(document.getElementById(hash), false);
     } else {
       // Keep all years closed initially on mobile and desktop
       document.querySelectorAll('.year-group').forEach(g => {
@@ -175,13 +176,18 @@ window.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
     if (hash) {
       showWorkById(hash);
-      const targetEl = document.getElementById(hash);
-      if (targetEl) {
-        const topbarHeight = topbar ? topbar.offsetHeight : 0;
-        const extraSpacing = 20;
-        const y = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+      scrollToWorkTop(document.getElementById(hash), false);
     }
   }
+
+  // After images/fonts load, re-align to the selected work once more to avoid
+  // mid-text landings caused by layout shifts
+  window.addEventListener('load', () => {
+    if (!document.body.classList.contains('works-body')) return;
+    const hash = window.location.hash ? window.location.hash.slice(1) : '';
+    if (hash) {
+      const el = document.getElementById(hash);
+      if (el) scrollToWorkTop(el, false);
+    }
+  });
 });
