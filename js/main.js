@@ -56,6 +56,20 @@ window.addEventListener('DOMContentLoaded', function() {
     window.scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' });
   }
 
+  function alignToWorkTop(targetId, attempts = 8) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    let tries = 0;
+    const tick = () => {
+      scrollToWorkTop(el, false);
+      tries += 1;
+      if (tries < attempts) {
+        setTimeout(tick, 80);
+      }
+    };
+    tick();
+  }
+
   function showWorkById(targetId) {
     if (!document.body.classList.contains('works-body')) return;
     const targetEl = document.getElementById(targetId);
@@ -99,7 +113,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
       // Scroll to the selected work's top (title/lead) after drawer state settles
       setTimeout(() => {
-        scrollToWorkTop(targetEl, true);
+        alignToWorkTop(targetId, 8);
         history.replaceState(null, '', '#' + targetId);
       }, 60);
     });
@@ -149,8 +163,8 @@ window.addEventListener('DOMContentLoaded', function() {
       // Reset any active state first
       document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
       showWorkById(hash);
-      // Scroll to the title/lead area of the selected work (instant to avoid shifts)
-      scrollToWorkTop(document.getElementById(hash), false);
+      // Scroll to the title/lead area of the selected work (robust alignment)
+      alignToWorkTop(hash, 10);
     } else {
       // Keep all years closed initially on mobile and desktop
       document.querySelectorAll('.year-group').forEach(g => {
@@ -176,7 +190,7 @@ window.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
     if (hash) {
       showWorkById(hash);
-      scrollToWorkTop(document.getElementById(hash), false);
+      alignToWorkTop(hash, 10);
     }
   }
 
@@ -186,8 +200,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (!document.body.classList.contains('works-body')) return;
     const hash = window.location.hash ? window.location.hash.slice(1) : '';
     if (hash) {
-      const el = document.getElementById(hash);
-      if (el) scrollToWorkTop(el, false);
+      alignToWorkTop(hash, 6);
     }
   });
 });
