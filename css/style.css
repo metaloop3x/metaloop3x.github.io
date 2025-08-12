@@ -247,9 +247,16 @@ img {
 
 .work-images img {
   margin-bottom: 1rem;
-  max-width: 100%;
+  width: 100%;
   height: auto;
 } 
+
+/* Ensure each work's lead image stretches to the content width even if the
+   intrinsic image is smaller (e.g., when using lower-res PNGs) */
+.work > img {
+  width: 100%;
+  height: auto;
+}
 
 /* Collapsible years in sidebar */
 .year-toggle {
