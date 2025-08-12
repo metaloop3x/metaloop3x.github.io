@@ -109,6 +109,12 @@ window.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const open = sidebarDrawer.classList.toggle('open');
         worksNav.classList.toggle('is-open', open);
+        // Scroll to topbar so drawer appears attached to it
+        if (open) {
+          const topbarRect = topbar.getBoundingClientRect();
+          const targetY = window.pageYOffset + topbarRect.top - 10; // small offset
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
       }
     });
   }
@@ -119,10 +125,12 @@ window.addEventListener('DOMContentLoaded', function() {
     if (hash) {
       showWorkById(hash);
     } else {
-      const first = yearGroups[0];
-      first.classList.add('open');
-      const btn = first.previousElementSibling;
-      if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'true');
+      // Keep all years closed initially on mobile and desktop
+      document.querySelectorAll('.year-group').forEach(g => {
+        g.classList.remove('open');
+        const btn = g.previousElementSibling;
+        if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'false');
+      });
       // Mobile: auto-open drawer on first load with no hash
       if (sidebarDrawer && worksNav && window.matchMedia('(max-width: 768px)').matches) {
         sidebarDrawer.classList.add('open');
@@ -136,5 +144,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const hash = window.location.hash ? window.location.hash.slice(1) : '';
     worksSections.forEach(sec => sec.classList.add('hidden'));
     if (hash) showWorkById(hash);
+    // Ensure no item is wrongly highlighted on first load
+    document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
   }
 });

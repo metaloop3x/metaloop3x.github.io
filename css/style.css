@@ -152,6 +152,9 @@ img {
   z-index: 50;
 }
 
+/* Hide legacy mobile button everywhere (we toggle with topbar link now) */
+.sidebar-toggle { display: none !important; }
+
 .sidebar ul {
   list-style: none;
   padding: 0;
@@ -365,11 +368,11 @@ img {
   }
   
   .sidebar { position: static; width: 100%; padding: 0; background: transparent; margin: 0 0 1rem 0; }
-  .sidebar-toggle { display: none; }
-  .works-nav::after { content: ' ▾'; font-size: 0.9em; }
-  .works-nav.is-open::after { content: ' ▴'; }
-  .drawer-content { display: none; padding: 0.5rem 1rem 1rem; background: #f0f0f0; }
-  .drawer-content.open { display: block; }
+  .works-nav { position: relative; }
+  .works-nav::after { content: ""; display: inline-block; margin-left: 4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid currentColor; transform-origin: 50% 40%; transition: transform 0.2s ease; }
+  .works-nav.is-open::after { transform: rotate(180deg); }
+  .drawer-content { max-height: 0; overflow: hidden; opacity: 0; padding: 0 1rem; background: #f0f0f0; transition: max-height 0.25s ease, opacity 0.25s ease, padding 0.25s ease; }
+  .drawer-content.open { max-height: 80vh; opacity: 1; padding: 0.5rem 1rem 1rem; }
   .year-toggle { font-weight: bold; }
   
   .sidebar ul {
