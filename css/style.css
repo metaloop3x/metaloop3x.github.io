@@ -365,8 +365,10 @@ img {
   }
   
   .sidebar { position: static; width: 100%; padding: 0; background: transparent; margin: 0 0 1rem 0; }
-  .sidebar-toggle { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; background: #efefef; border: 1px solid #ddd; font: 500 0.95rem/1.2 Helvetica, Arial, sans-serif; }
-  .drawer-content { display: none; padding: 0.5rem 1rem 1rem; background: #f7f7f7; }
+  .sidebar-toggle { display: none; }
+  .works-nav::after { content: ' ▾'; font-size: 0.9em; }
+  .works-nav.is-open::after { content: ' ▴'; }
+  .drawer-content { display: none; padding: 0.5rem 1rem 1rem; background: #f0f0f0; }
   .drawer-content.open { display: block; }
   .year-toggle { font-weight: bold; }
   

@@ -42,6 +42,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const worksSections = document.querySelectorAll('body.works-body .content .work');
   const sidebarDrawerBtn = document.querySelector('.sidebar-toggle');
   const sidebarDrawer = document.querySelector('.drawer-content');
+  const worksNav = document.querySelector('.works-nav');
 
   function showWorkById(targetId) {
     if (!document.body.classList.contains('works-body')) return;
@@ -100,11 +101,15 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Mobile: sidebar drawer toggle
-  if (sidebarDrawerBtn && sidebarDrawer) {
-    sidebarDrawerBtn.addEventListener('click', function() {
-      const open = sidebarDrawer.classList.toggle('open');
-      sidebarDrawerBtn.setAttribute('aria-expanded', String(open));
+  // Mobile: use topbar "works" as drawer toggle
+  if (worksNav && sidebarDrawer) {
+    worksNav.addEventListener('click', function(e) {
+      // Only intercept on mobile layout where drawer exists
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        e.preventDefault();
+        const open = sidebarDrawer.classList.toggle('open');
+        worksNav.classList.toggle('is-open', open);
+      }
     });
   }
 
@@ -118,6 +123,11 @@ window.addEventListener('DOMContentLoaded', function() {
       first.classList.add('open');
       const btn = first.previousElementSibling;
       if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'true');
+      // Mobile: auto-open drawer on first load with no hash
+      if (sidebarDrawer && worksNav && window.matchMedia('(max-width: 768px)').matches) {
+        sidebarDrawer.classList.add('open');
+        worksNav.classList.add('is-open');
+      }
     }
   }
 
