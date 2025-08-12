@@ -111,9 +111,18 @@ window.addEventListener('DOMContentLoaded', function() {
         worksNav.classList.toggle('is-open', open);
         // Scroll to topbar so drawer appears attached to it
         if (open) {
-          const topbarRect = topbar.getBoundingClientRect();
-          const targetY = window.pageYOffset + topbarRect.top - 10; // small offset
+          const targetY = 0;
           window.scrollTo({ top: targetY, behavior: 'smooth' });
+          // Collapse all years; wait a tick so drawer animation starts
+          setTimeout(() => {
+            document.querySelectorAll('.year-group').forEach(g => {
+              g.classList.remove('open');
+              const btn = g.previousElementSibling;
+              if (btn && btn.matches('.year-toggle')) btn.setAttribute('aria-expanded', 'false');
+            });
+            // Remove any active highlight
+            document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
+          }, 50);
         }
       }
     });
@@ -135,6 +144,7 @@ window.addEventListener('DOMContentLoaded', function() {
       if (sidebarDrawer && worksNav && window.matchMedia('(max-width: 768px)').matches) {
         sidebarDrawer.classList.add('open');
         worksNav.classList.add('is-open');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
   }
@@ -143,7 +153,17 @@ window.addEventListener('DOMContentLoaded', function() {
   if (document.body.classList.contains('works-body') && worksSections.length) {
     const hash = window.location.hash ? window.location.hash.slice(1) : '';
     worksSections.forEach(sec => sec.classList.add('hidden'));
-    if (hash) showWorkById(hash);
+    if (hash) {
+      showWorkById(hash);
+      // Scroll to the top of the selected work (title/image area)
+      const targetEl = document.getElementById(hash);
+      if (targetEl) {
+        const topbarHeight = topbar ? topbar.offsetHeight : 0;
+        const extraSpacing = 20;
+        const y = targetEl.getBoundingClientRect().top + window.pageYOffset - (topbarHeight + extraSpacing);
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
     // Ensure no item is wrongly highlighted on first load
     document.querySelectorAll('.year-group a').forEach(link => link.classList.remove('active'));
   }
