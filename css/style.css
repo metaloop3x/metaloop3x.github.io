@@ -61,7 +61,7 @@ img {
 
 /* Logo in the top bar */
 .site-title img {
-  height: 3.875rem;
+  height: 2.75rem;
   width: auto;
   margin: 0;
 }
@@ -71,13 +71,13 @@ img {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: start;
-  padding: 1rem 2rem 0 2rem;
+  padding: 0.5rem 2rem 0 2rem;
   background: #f8f8f8;
   border-bottom: none;
   position: sticky;
   top: 0;
   z-index: 100;
-  height: 12rem; /* fixed height independent of logo size */
+  height: 6rem; /* reduced header height */
 }
 
 
@@ -132,7 +132,7 @@ img {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 12rem; /* sits just below fixed topbar */
+  top: 6rem; /* sits just below reduced topbar */
   left: 2rem;
   width: 140px;
   padding: 0;
@@ -194,7 +194,7 @@ img {
   border-bottom: none;
   padding-bottom: 2rem;
   /* Ensure anchor links position section below sticky topbar */
-  scroll-margin-top: 26rem;
+  scroll-margin-top: 12rem;
 }
 
 .works-body .work.hidden { display: none; }
@@ -373,7 +373,7 @@ img {
 }
 
 @media (max-width: 768px) {
-  .site-title img { height: 2.75rem; }
+  .site-title img { height: 2.5rem; }
   .sidebar { top: auto; }
   .topbar { height: auto; padding: 1.25rem; }
   .work { scroll-margin-top: 12rem; }
@@ -422,7 +422,7 @@ img {
 }
 
 @media (max-width: 480px) {
-  .site-title img { height: 2.5rem; }
+  .site-title img { height: 2.25rem; }
   .sidebar { top: auto; }
   .topbar {
     padding: 1rem;
