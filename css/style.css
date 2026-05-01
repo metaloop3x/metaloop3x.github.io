@@ -454,16 +454,34 @@ img {
     grid-column: 17 / span 6;
   }
   
-  /* Fix Biography list squeezing in narrow columns */
+  /* Biography list grid alignments */
   .about-col .about-list li {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+    display: grid;
+    gap: 0;
     margin-bottom: 1.5rem;
+    align-items: start;
   }
+  
+  /* Exhibitions & Awards: Year takes 1 col, Text takes 5 cols */
+  .about-col-2 .about-list li,
+  .about-col-3 .about-list li {
+    grid-template-columns: 1fr 5fr;
+  }
+
+  /* Education: Year takes 2 cols, Text takes 4 cols */
+  #education .about-list li {
+    grid-template-columns: 2fr 4fr;
+  }
+
   .about-col .about-year {
-    font-size: 0.9em;
-    color: #555;
+    font-size: 0.85rem;
+    color: #000;
+    padding-right: 0.5rem;
+  }
+  
+  /* Biography Image: spans 4 out of 6 cols */
+  .about-col-1 .bio-photo {
+    width: calc(100% * 4 / 6);
   }
 
   /* Contact Layout */
