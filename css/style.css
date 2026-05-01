@@ -386,7 +386,7 @@ img {
     align-self: start;
     grid-column: 2 / span 3;
     width: auto;
-    padding-top: 2rem;
+    padding-top: 0;
   }
   
   .content {
@@ -438,6 +438,18 @@ img {
   }
   .about-col-3 {
     grid-column: 17 / span 6;
+  }
+  
+  /* Fix Biography list squeezing in narrow columns */
+  .about-col .about-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-col .about-year {
+    font-size: 0.9em;
+    color: #555;
   }
 
   /* Contact Layout */
