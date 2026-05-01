@@ -414,6 +414,11 @@ img {
   .work-media {
     grid-column: 8 / span 11; /* Relates to global columns 13-23 */
   }
+
+  /* About sections must NOT inherit the .work grid — stack normally */
+  .work.about-section {
+    display: block;
+  }
   
   /* About Layout (3 independent columns) */
   .about-grid {
