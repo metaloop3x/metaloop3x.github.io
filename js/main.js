@@ -204,3 +204,44 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+// Home Page Slider Auto-load logic
+document.addEventListener('DOMContentLoaded', () => {
+  const homeSlider = document.getElementById('homeSlider');
+  if (homeSlider && document.body.classList.contains('home-body')) {
+    fetch('./works.html')
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const works = doc.querySelectorAll('.work');
+        
+        homeSlider.innerHTML = '';
+        const limit = Math.min(3, works.length);
+        
+        for (let i = 0; i < limit; i++) {
+          const work = works[i];
+          const id = work.getAttribute('id');
+          const year = work.getAttribute('data-year');
+          const titleEl = work.querySelector('h2');
+          const title = titleEl ? titleEl.innerText : '';
+          
+          // The image is inside .work-media now, or directly in .work if old structure
+          const imgEl = work.querySelector('.work-media img') || work.querySelector('img');
+          const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
+          
+          if (imgSrc && title) {
+            const slide = document.createElement('a');
+            slide.className = 'slide';
+            slide.href = `./works.html#${id}`;
+            slide.innerHTML = `
+              <img src="${imgSrc}" alt="${title} lead image">
+              <div class="slide-caption"><span class="year">${year}</span> ${title}</div>
+            `;
+            homeSlider.appendChild(slide);
+          }
+        }
+      })
+      .catch(err => console.error('Error loading works for slider:', err));
+  }
+});
