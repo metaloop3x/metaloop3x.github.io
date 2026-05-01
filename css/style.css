@@ -661,14 +661,11 @@ img {
     margin-bottom: 2rem;
     align-items: start;
   }
-  .overlay-logo {
-    grid-column: 1 / span 6;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-    letter-spacing: 1px;
-    text-decoration: none;
-    color: #000;
+  .overlay-logo img {
+    height: 2rem;
+    width: auto;
+    margin: 0;
+    display: block;
   }
   .overlay-close-btn {
     grid-column: 7 / span 2;
@@ -771,6 +768,26 @@ img {
     font-size: 0.85rem;
   }
 
+  /* Stacked Menu + Work toggle on works page */
+  .mobile-nav-area {
+    grid-column: 7 / span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.1rem;
+  }
+  .mobile-works-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: #000;
+    padding: 0;
+    line-height: 1.4;
+  }
+
   /* === Mobile Works Content === */
   .works-layout-wrapper { display: block; }
   .content { margin-left: 0; padding: 0; max-width: none; }
@@ -780,39 +797,58 @@ img {
     margin-bottom: 3rem;
     scroll-margin-top: 8rem;
   }
-  /* Explode .work-text children so we can reorder them */
-  .work-text { display: contents; }
+  /* Explode both .work-text AND .work-media children for full reordering */
+  .work-text,
+  .work-media { display: contents; }
   .work h2 {
     order: 1;
     padding: 1.25rem 1rem 0.25rem;
     font-size: 1rem;
     font-weight: bold;
+    display: block;
   }
   .work .info {
     order: 2;
     padding: 0 1rem 0.75rem;
     font-size: 0.8rem;
     color: #555;
+    display: block;
   }
-  .work-media {
-    order: 3;
-    margin: 0;
-  }
-  /* First image: full bleed */
+  /* First/lead image: order 3, full bleed */
   .work-media > img:first-child {
+    order: 3;
     width: 100%;
-    margin: 0 0 0.4rem 0;
+    margin: 0;
+    display: block;
   }
   .work .description {
     order: 4;
     padding: 1rem 1rem 0;
+    display: block;
   }
-  /* Remaining images in work-images: full bleed */
+  /* Video and remaining images: order 5, after description */
+  .work-media > .video-container {
+    order: 5;
+    width: 100%;
+    margin: 1rem 0 0;
+    display: block;
+  }
+  .work-media > .work-images {
+    order: 5;
+    display: block;
+  }
+  .work-media > img:not(:first-child) {
+    order: 5;
+    width: 100%;
+    margin: 0;
+    display: block;
+  }
   .work-images img {
     width: 100%;
-    margin: 0 0 0.5rem 0;
+    margin: 0;
+    display: block;
   }
-  .video-container { margin: 0.5rem 0; }
+  .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
 
   /* === Mobile About/Biography === */
   .about-grid {

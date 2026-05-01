@@ -252,28 +252,58 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
-  // --- Menu Overlay (non-works pages) ---
   const menuBtn = document.getElementById('mobileMenuBtn');
   const menuOverlay = document.getElementById('mobileMenuOverlay');
   const menuClose = document.getElementById('mobileMenuClose');
   const expandBtn = menuOverlay ? menuOverlay.querySelector('.overlay-expand-btn') : null;
   const overlayWorksList = menuOverlay ? menuOverlay.querySelector('.overlay-works-list') : null;
+  const worksBtn = document.getElementById('mobileWorksBtn');
+  const drawerContent = document.querySelector('.drawer-content');
+  const worksArrow = worksBtn ? worksBtn.querySelector('.mob-works-arrow') : null;
   let worksListLoaded = false;
 
-  if (menuBtn && menuOverlay && !document.body.classList.contains('works-body')) {
+  function openOverlay() {
+    if (!menuOverlay) return;
+    // Close works drawer first
+    if (drawerContent) {
+      drawerContent.classList.remove('open');
+      if (worksArrow) worksArrow.innerHTML = '&#9660;';
+    }
+    menuOverlay.classList.add('open');
+    menuOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOverlay() {
+    if (!menuOverlay) return;
+    menuOverlay.classList.remove('open');
+    menuOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function openWorksDrawer() {
+    if (!drawerContent) return;
+    // Close overlay first
+    closeOverlay();
+    drawerContent.classList.add('open');
+    if (worksArrow) worksArrow.innerHTML = '&#9650;';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // --- Menu button (all pages including works) ---
+  if (menuBtn) {
     menuBtn.addEventListener('click', () => {
       if (!isMobile()) return;
-      menuOverlay.classList.add('open');
-      menuOverlay.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+      if (menuOverlay && menuOverlay.classList.contains('open')) {
+        closeOverlay();
+      } else {
+        openOverlay();
+      }
     });
-    if (menuClose) {
-      menuClose.addEventListener('click', () => {
-        menuOverlay.classList.remove('open');
-        menuOverlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      });
-    }
+  }
+
+  if (menuClose) {
+    menuClose.addEventListener('click', closeOverlay);
   }
 
   // Expand/collapse works list inside overlay
@@ -316,17 +346,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Works page: mobile "Work ▲/▼" toggle ---
-  const worksBtn = document.getElementById('mobileWorksBtn');
-  const drawerContent = document.querySelector('.drawer-content');
-  const worksArrow = worksBtn ? worksBtn.querySelector('.mob-works-arrow') : null;
-
+  // --- Works page: "Work ▲/▼" toggle ---
   if (worksBtn && drawerContent && document.body.classList.contains('works-body')) {
     worksBtn.addEventListener('click', () => {
       if (!isMobile()) return;
-      const isOpen = drawerContent.classList.toggle('open');
-      if (worksArrow) worksArrow.innerHTML = isOpen ? '&#9650;' : '&#9660;';
-      if (isOpen) window.scrollTo({ top: 0, behavior: 'smooth' });
+      const isOpen = drawerContent.classList.contains('open');
+      if (isOpen) {
+        drawerContent.classList.remove('open');
+        if (worksArrow) worksArrow.innerHTML = '&#9660;';
+      } else {
+        openWorksDrawer();
+      }
     });
 
     // Auto-close drawer when a work is selected
@@ -338,5 +368,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+
+    // If drawer was auto-opened on page load (no hash), sync the arrow
+    if (drawerContent.classList.contains('open') && worksArrow) {
+      worksArrow.innerHTML = '&#9650;';
+    }
   }
 });
