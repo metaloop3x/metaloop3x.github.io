@@ -359,6 +359,7 @@ img {
 /* Desktop Grid Layout implementation */
 @media (min-width: 769px) {
   .topbar {
+    display: grid;
     grid-template-columns: repeat(24, 1fr);
     padding: 0.5rem 0 0 0;
     max-width: 1920px;
@@ -427,6 +428,19 @@ img {
     overflow-y: auto;
     padding: 2rem 0 4rem 0;
   }
+  
+  /* Ensure Biography headers perfectly match the mockup */
+  .about-grid h1,
+  .about-grid h2 {
+    font-size: 1.1rem;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-weight: bold;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: normal;
+    text-transform: none;
+    line-height: 1.2;
+  }
+  
   .about-col::-webkit-scrollbar {
     display: none; /* Hide scrollbars for cleaner look */
   }
@@ -493,9 +507,16 @@ img {
   display: none;
 }
 @media (min-width: 769px) {
+  .home-content {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    max-width: 1920px;
+    margin: 0 auto;
+  }
   .home-slider {
-    /* Align first item to column 2 using padding */
-    padding-left: calc(100vw * (1 / 24));
+    grid-column: 2 / 25;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 .slide {
