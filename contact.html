@@ -27,6 +27,7 @@
       <a href="./about.html">biography</a>
       <a href="./contact.html" class="active">contact</a>
     </nav>
+    <button class="mobile-nav-btn" id="mobileMenuBtn" aria-label="Open menu">Menu<span class="mob-page-label">Contact</span></button>
   </div>
 
   <!-- Main Content -->
@@ -46,6 +47,22 @@
   </main>
 
   <button id="backToTop" onclick="scrollToTop()">back to top</button>
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true">
+    <div class="overlay-topbar">
+      <a href="./index.html" class="overlay-logo">KHING</a>
+      <button class="overlay-close-btn" id="mobileMenuClose">Menu</button>
+    </div>
+    <nav class="overlay-nav">
+      <div class="overlay-nav-row">
+        <a href="./works.html">Work</a>
+        <button class="overlay-expand-btn" aria-expanded="false" aria-label="Show works list">&#9654;</button>
+      </div>
+      <ul class="overlay-works-list" hidden></ul>
+      <a href="./about.html" class="overlay-nav-link">Biography</a>
+      <a href="./contact.html" class="overlay-nav-link">Contact</a>
+    </nav>
+  </div>
   <script src="js/main.js"></script>
 </body>
 </html>

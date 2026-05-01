@@ -245,3 +245,98 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(err => console.error('Error loading works for slider:', err));
   }
 });
+
+// ============================================================
+// Mobile Navigation
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+  // --- Menu Overlay (non-works pages) ---
+  const menuBtn = document.getElementById('mobileMenuBtn');
+  const menuOverlay = document.getElementById('mobileMenuOverlay');
+  const menuClose = document.getElementById('mobileMenuClose');
+  const expandBtn = menuOverlay ? menuOverlay.querySelector('.overlay-expand-btn') : null;
+  const overlayWorksList = menuOverlay ? menuOverlay.querySelector('.overlay-works-list') : null;
+  let worksListLoaded = false;
+
+  if (menuBtn && menuOverlay && !document.body.classList.contains('works-body')) {
+    menuBtn.addEventListener('click', () => {
+      if (!isMobile()) return;
+      menuOverlay.classList.add('open');
+      menuOverlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+    if (menuClose) {
+      menuClose.addEventListener('click', () => {
+        menuOverlay.classList.remove('open');
+        menuOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    }
+  }
+
+  // Expand/collapse works list inside overlay
+  if (expandBtn && overlayWorksList) {
+    expandBtn.addEventListener('click', () => {
+      const isOpen = expandBtn.getAttribute('aria-expanded') === 'true';
+      expandBtn.setAttribute('aria-expanded', String(!isOpen));
+      expandBtn.classList.toggle('open', !isOpen);
+      overlayWorksList.hidden = isOpen;
+
+      if (!worksListLoaded && !isOpen) {
+        worksListLoaded = true;
+        fetch('./works.html')
+          .then(r => r.text())
+          .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const works = doc.querySelectorAll('.work');
+            const byYear = {};
+            works.forEach(w => {
+              const yr = w.getAttribute('data-year');
+              const id = w.getAttribute('id');
+              const titleEl = w.querySelector('h2');
+              const title = titleEl ? titleEl.textContent.trim() : '';
+              if (!byYear[yr]) byYear[yr] = [];
+              byYear[yr].push({ id, title });
+            });
+            overlayWorksList.innerHTML = Object.keys(byYear)
+              .sort((a, b) => b - a)
+              .map(yr => `
+                <li class="overlay-year-row">
+                  <span class="overlay-year">${yr}</span>
+                  <div class="overlay-titles">
+                    ${byYear[yr].map(w => `<a href="./works.html#${w.id}">${w.title}</a>`).join('')}
+                  </div>
+                </li>
+              `).join('');
+          })
+          .catch(err => console.error('Error loading works for overlay:', err));
+      }
+    });
+  }
+
+  // --- Works page: mobile "Work ▲/▼" toggle ---
+  const worksBtn = document.getElementById('mobileWorksBtn');
+  const drawerContent = document.querySelector('.drawer-content');
+  const worksArrow = worksBtn ? worksBtn.querySelector('.mob-works-arrow') : null;
+
+  if (worksBtn && drawerContent && document.body.classList.contains('works-body')) {
+    worksBtn.addEventListener('click', () => {
+      if (!isMobile()) return;
+      const isOpen = drawerContent.classList.toggle('open');
+      if (worksArrow) worksArrow.innerHTML = isOpen ? '&#9650;' : '&#9660;';
+      if (isOpen) window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Auto-close drawer when a work is selected
+    drawerContent.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => {
+        if (isMobile()) {
+          drawerContent.classList.remove('open');
+          if (worksArrow) worksArrow.innerHTML = '&#9660;';
+        }
+      });
+    });
+  }
+});
