@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close overlay first
     closeOverlay();
     drawerContent.classList.add('open');
-    if (worksArrow) worksArrow.innerHTML = '&#9650;';
+    if (worksBtn) worksBtn.classList.add('open');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -353,9 +353,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = drawerContent.classList.contains('open');
       if (isOpen) {
         drawerContent.classList.remove('open');
-        if (worksArrow) worksArrow.innerHTML = '&#9660;';
+        worksBtn.classList.remove('open');
       } else {
         openWorksDrawer();
+        worksBtn.classList.add('open');
       }
     });
 
@@ -364,14 +365,14 @@ document.addEventListener('DOMContentLoaded', () => {
       link.addEventListener('click', () => {
         if (isMobile()) {
           drawerContent.classList.remove('open');
-          if (worksArrow) worksArrow.innerHTML = '&#9660;';
+          worksBtn.classList.remove('open');
         }
       });
     });
 
     // If drawer was auto-opened on page load (no hash), sync the arrow
-    if (drawerContent.classList.contains('open') && worksArrow) {
-      worksArrow.innerHTML = '&#9650;';
+    if (drawerContent.classList.contains('open')) {
+      worksBtn.classList.add('open');
     }
   }
 });

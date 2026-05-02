@@ -70,6 +70,7 @@ img {
 .mobile-nav-btn,
 .mobile-nav-area,
 .mobile-works-btn,
+.mobile-works-toggle,
 .mobile-menu-overlay {
   display: none;
 }
@@ -784,7 +785,7 @@ img {
     font-size: 0.85rem;
   }
 
-  /* Stacked Menu + Work toggle on works page */
+  /* Stacked Menu + Work label on works page topbar */
   .mobile-nav-area {
     grid-column: 7 / span 2;
     display: flex;
@@ -792,16 +793,36 @@ img {
     align-items: flex-end;
     gap: 0.1rem;
   }
-  .mobile-works-btn {
+  .mobile-nav-area .mob-page-label {
+    font-size: 0.75rem;
+    color: #555;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+  }
+
+  /* Works drawer toggle — below topbar, left side */
+  .mobile-works-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     background: none;
     border: none;
     cursor: pointer;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: 300;
     color: #000;
-    padding: 0;
-    line-height: 1.4;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: left;
+  }
+  .mob-works-arrow {
+    font-size: 0.65rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .mobile-works-toggle.open .mob-works-arrow {
+    transform: rotate(180deg);
   }
 
   /* === Mobile Works Content === */
