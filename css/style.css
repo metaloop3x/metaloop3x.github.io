@@ -202,8 +202,8 @@ img {
   margin-bottom: 4rem;
   border-bottom: none;
   padding-bottom: 2rem;
-  /* Ensure anchor links position section below sticky topbar */
-  scroll-margin-top: 12rem;
+  /* Ensure anchor links position section below sticky topbar (~6rem tall on desktop) */
+  scroll-margin-top: 6rem;
 }
 
 .works-body .work.hidden { display: none; }
@@ -581,9 +581,8 @@ img {
   font-size: 0.9rem;
 }
 .slide-caption .year {
-  color: #666;
+  color: #888;
   margin-right: 0.5rem;
-  font-size: 0.85rem;
 }
 
 /* Responsive Design */
@@ -594,7 +593,7 @@ img {
   }
   .site-title img { height: 7rem; }
   .sidebar { top: 12rem; }
-  .work { scroll-margin-top: 20rem; }
+  .work { scroll-margin-top: 10rem; }
   
   .sidebar {
     width: 120px;
