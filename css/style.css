@@ -249,6 +249,35 @@ img {
   margin-bottom: 0;
 }
 
+.work-exhibition {
+  margin-top: 2.5rem;
+  font-family: 'Times New Roman', Georgia, serif;
+}
+
+.exhibition-label {
+  font-size: 0.8rem;
+  color: #808080;
+  margin-bottom: 0.4rem;
+}
+
+.exhibition-value {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.exhibition-value a {
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.2s ease;
+}
+
+.exhibition-value a:hover {
+  border-bottom: 1px solid #000;
+}
+
 /* Image gallery styling */
 .work-images {
   margin: 2rem 0;
@@ -861,6 +890,12 @@ img {
     order: 4;
     padding: 1rem 1rem 0;
     display: block;
+  }
+  .work .work-exhibition {
+    order: 4;
+    padding: 1rem 1rem 0;
+    display: block;
+    margin-top: 1.5rem;
   }
   /* Video and remaining images: order 5, after description */
   .work-media > .video-container {
