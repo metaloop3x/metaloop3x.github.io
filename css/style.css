@@ -636,19 +636,19 @@ img {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     height: auto;
-    padding: 1rem;
-    align-items: center;
+    padding: 1rem 1rem 0;
+    align-items: start;
   }
   .site-title {
     grid-column: 1 / span 6;
     flex-direction: column;
     align-items: flex-start;
     height: auto;
-    padding-bottom: 0;
+    padding-bottom: 0.5rem;
   }
   .site-title img {
-    height: 1.4rem;
-    margin-bottom: 0;
+    height: 2.5rem;
+    margin-bottom: 0.1rem;
   }
   .site-title p.site-subtitle {
     display: block;
